@@ -1,0 +1,32 @@
+{
+    "STORE": [
+        "Sky Avenue Kiosk",
+        "Sky Avenue Store",
+        "Genting Premium Outlets"
+    ],
+    "TARGET": {
+        "STORE": {
+            "SOFTSERVE": 2787.1,
+            "FOOD": 290.33,
+            "BEVERAGES": 696.77,
+            "RETAIL": 2032.26,
+            "MONTHLY": 180000
+        },
+        "KIOSK": {
+            "SOFTSERVE": 2709.67,
+            "RETAIL": 1161.29,
+            "MONTHLY": 120000
+        }
+    },
+    "SOFTSERVE": {
+        "DARKCHOCO": 28.3,
+        "VANILLA": 28.3,
+        "CHOCOTWIST": 28.3,
+        "CARAMEL": 30.19,
+        "CARAMELMIX": 30.19
+    },
+    "FOOD": {
+        "PREYEL": 21.7
+    },
+    "BEVERAGES": {}
+}
