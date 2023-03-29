@@ -23,10 +23,37 @@ const SOFTSERVE = {
 }
 
 const FOOD = {
-    PREYEL: 21.7,
+    CAKES: 21.7,
+    PRALINE: 26.4,
 }
 
 const BEVERAGES = {
+    HOT: {
+        AMERICANO: 11.32,
+        MOCHA: 13.21,
+        LATTE: 13.21,
+        CARAMEL_LATTE: 13.67,
+        VANILLA_LATTE: 13.67,
+        SINGLE_EXPRESSO: 7.55,
+        DOUBLE_EXPRESSO: 11.32,
+        CHOCOLATE: 25.47,
+        CAPPUCINO: 0,
+        AFFOGATO: 0,
+    },
+    COLD: {
+        AMERICANO: 13.21,
+        LATTE: 15.09,
+        CARAMEL_LATTE: 15.56,
+        CARAMEL_LATTE: 15.56,
+        MOCHA: 15.09,
+        CHOCOLATE: 27.36,
+    },
+    SHAKE: {
+        DARK: 30.19,
+        MILK: 30.19,
+    },
+    TEA: 15.09,
+    WATER: 234345435
 }
 
 const DailySalesReport = ({
