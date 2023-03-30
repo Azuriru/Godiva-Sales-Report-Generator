@@ -44,6 +44,7 @@ const BEVERAGES = {
     COLD: {
         AMERICANO: 13.21,
         LATTE: 15.09,
+        CAPPUCINO: 15.09,
         MOCHA: 15.09,
         CARAMEL_LATTE: 15.56,
         CARAMEL_LATTE: 15.56,
@@ -140,65 +141,99 @@ const DailySalesReport = ({
     } = TARGET[store ? 'STORE' : 'KIOSK'];
     const DAILY_TARGET = [ SOFTSERVE_TARGET, FOOD_TARGET, BEVERAGES_TARGET, RETAIL_TARGET ].reduce((c, v) => c + v);
 
-    const GDV_MALAYSIA = `
-        *${store ? 'Sky Avenue Store' : 'Sky Avenue Kiosk'} Sales Report*
-        Date: ${date} 10:00 PM
-        Retail: *${rm(retail)} _(${rm(RETAIL_TARGET)})_*
-        Soft serve: *${rm(ss)} _(${rm(SOFTSERVE_TARGET)})_*
-        ${store ? '' : ''}
-        Gift Card: *NIL*
-        Total: *${rm(total)} _(${rm(DAILY_TARGET)})_*
-        Discount: *${rm(totalDiscount)}*
+    let GODIVA_MALAYSIA = `*${STORE[store]} Sales Report*` + '\n';
 
-        Store target: *${rm(MONTHLY_TARGET)}* 
-        Retail MTD: *${rm(rMTD)}*
-        Softserve MTD: *${rm(ssMTD)}*
-        Total MTD: *${rm(mtd)}*
+    GODIVA_MALAYSIA += `Date: ${date} 10:00 PM` + '\n';
+    GODIVA_MALAYSIA += '\n';
+    GODIVA_MALAYSIA += `Retail: *${rm(retail)} _(${rm(RETAIL_TARGET)})_*` + '\n';
+    GODIVA_MALAYSIA += `Soft serve: *${rm(ss)} _(${rm(SOFTSERVE_TARGET)})_*` + '\n';
 
-        Actual vs Target: *${Math.round(mtd / MONTHLY_TARGET * 10000) / 100}%*
+    if (store) {
+        GODIVA_MALAYSIA += `Food: *${rm(cakes)} _(${rm(FOOD_TARGET)})_*` + '\n';
+        GODIVA_MALAYSIA += `Beverages: *${rm(drinks)} _(${rm(BEVERAGES_TARGET)})_*` + '\n';
+    }
 
-        Void: *0*
-        Reprint receipt: *-*
-        Crack cones: *${crackedCones}*
-        Manual Receipts: *-*
-        Walk in: *${walkIn}*
-        Transaction: *${transaction}*
-        CRM: *${crm} _(${crmP}%)_*
+    GODIVA_MALAYSIA += 'Gift Card: *NIL*' + '\n';
+    GODIVA_MALAYSIA += `Total: *${rm(total)} _(${rm(DAILY_TARGET)})_*` + '\n';
+    GODIVA_MALAYSIA += `Discount: *${rm(totalDiscount)}*` + '\n';
+    GODIVA_MALAYSIA += '\n';
+    GODIVA_MALAYSIA += `Store target: *${rm(MONTHLY_TARGET)}*` + '\n';
+    GODIVA_MALAYSIA += `Retail MTD: *${rm(rMTD)}*` + '\n';
+    GODIVA_MALAYSIA += `Softserve MTD: *${rm(ssMTD)}*` + '\n';
 
-        White Chocolixir Promo: *-*
-        Huawei Redemption: *-*
-        Godiva Gift Card: *-*
-        Gift Card MTD : *-*
-        Gift Card Conversion : *-*
-    `;
+    if (store) {
+        GODIVA_MALAYSIA += `Food MTD: *${rm(foodMTD)}*` + '\n';
+        GODIVA_MALAYSIA += `Beverages MTD: *${rm(beveragesMTD)}*` + '\n';
+    }
 
-    const GDV_GENTING = `
-        Godiva Sales Report
-        ${store ? 'Sky Avenue Store' : 'Sky Avenue Kiosk'}
-        Date: ${date} 10:00 PM
+    GODIVA_MALAYSIA += `Total MTD: *${rm(mtd)}*` + '\n';
+    GODIVA_MALAYSIA += '\n';
+    GODIVA_MALAYSIA += `Actual vs Target: *${Math.round(mtd / MONTHLY_TARGET * 10000) / 100}%*`
+    GODIVA_MALAYSIA += '\n';
+    GODIVA_MALAYSIA += `Void: *0*` + '\n';
+    GODIVA_MALAYSIA += `Reprint receipt: *-*` + '\n';
+    GODIVA_MALAYSIA += `Crack cones: *${crackedCones}*` + '\n';
+    GODIVA_MALAYSIA += `Manual Receipts: *-*` + '\n';
+    GODIVA_MALAYSIA += `Walk in: *${walkIn}*` + '\n';
+    GODIVA_MALAYSIA += `Transaction: *${transaction}*` + '\n';
+    GODIVA_MALAYSIA += `CRM: *${crm} _(${crmP}%)_*` + '\n';
+    GODIVA_MALAYSIA += '\n';
 
-        Month Target: *${rm(MONTHLY_TARGET)}*
-        Day Target: *${rm(DAILY_TARGET)}*
-        Day Sales: *${rm(total)}*
-        MTD Sales: *${rm(mtd)}*
-        Achievement: *${Math.floor(total / (DAILY_TARGET) * 100)}%*
+    if (store) {
+        GODIVA_MALAYSIA += `Raya Hamper` + '\n';
+        GODIVA_MALAYSIA += `Daily Target:` + '\n';
+        GODIVA_MALAYSIA += `Quantity Sold:` + '\n';
+        GODIVA_MALAYSIA += '\n';
+        GODIVA_MALAYSIA += `RM 178:` + '\n';
+        GODIVA_MALAYSIA += `RM 238:` + '\n';
+        GODIVA_MALAYSIA += `RM 298:` + '\n';
+        GODIVA_MALAYSIA += `RM 398:` + '\n';
+        GODIVA_MALAYSIA += `RM 498:` + '\n';
+        GODIVA_MALAYSIA += `RM 598:` + '\n';
+        GODIVA_MALAYSIA += `RM 698:` + '\n';
+        GODIVA_MALAYSIA += `RM 798:` + '\n';
+        GODIVA_MALAYSIA += `RM 968:` + '\n';
+        GODIVA_MALAYSIA += `RM 1088:` + '\n';
+        GODIVA_MALAYSIA += `KUPAT BOX:` + '\n';
+        GODIVA_MALAYSIA += `PRALINE 8PC BOX:` + '\n';
+        GODIVA_MALAYSIA += `PRALINE 16PC BOX:` + '\n';
+        GODIVA_MALAYSIA += `RAYA CUBE 6PCS BOX:` + '\n';
+        GODIVA_MALAYSIA += `RAYA GOLD CHOC 6PC BOX:` + '\n';
+        GODIVA_MALAYSIA += '\n';
+    }
+    
+    GODIVA_MALAYSIA += `White Chocolixir Promo: *-*` + '\n';
+    GODIVA_MALAYSIA += `Huawei Redemption: *-*` + '\n';
+    GODIVA_MALAYSIA += `Godiva Gift Card: *-*` + '\n';
+    GODIVA_MALAYSIA += `Gift Card MTD : *-*` + '\n';
+    GODIVA_MALAYSIA += `Gift Card Conversion : *-*` + '\n';
 
-        Traffic: *${walkIn}*
-        Transaction: *${transaction}*
-        W/in Trans: *${transaction}*
-        Conversion: *${conversion}*
-        ATV: *${Math.round(total / transaction * 100) / 100}*
-        QTY: *${quantity}*
+    let GODIVA_GENTING = 'Godiva Sales Report' + '\n';
 
-        Cust Demo: 
-        - Local Chinese, Malay, Indian
-        - Tourist Indonesian, Singaporean, Arabian
-    `;
+    GODIVA_GENTING += `${STORE[store]}` + '\n';
+    GODIVA_GENTING += `Date: ${date} 10:00 PM` + '\n';
+    GODIVA_GENTING += '\n';
+    GODIVA_GENTING += `Month Target: *${rm(MONTHLY_TARGET)}*` + '\n';
+    GODIVA_GENTING += `Day Target: *${rm(DAILY_TARGET)}*` + '\n';
+    GODIVA_GENTING += `Day Sales: *${rm(total)}*` + '\n';
+    GODIVA_GENTING += `MTD Sales: *${rm(mtd)}*` + '\n';
+    GODIVA_GENTING += `Achievement: *${Math.floor(total / (DAILY_TARGET) * 100)}%*` + '\n';
+    GODIVA_GENTING += '\n';
+    GODIVA_GENTING += `Traffic: *${walkIn}*` + '\n';
+    GODIVA_GENTING += `Transaction: *${transaction}*` + '\n';
+    GODIVA_GENTING += `W/in Trans: *${transaction}*` + '\n';
+    GODIVA_GENTING += `Conversion: *${conversion}*` + '\n';
+    GODIVA_GENTING += `ATV: *${Math.round(total / transaction * 100) / 100}*` + '\n';
+    GODIVA_GENTING += `QTY: *${quantity}*` + '\n';
+    GODIVA_GENTING += '\n';
+    GODIVA_GENTING += 'Cust Demo:' + '\n';
+    GODIVA_GENTING += '- Local Chinese, Malay, India' + '\n';
+    GODIVA_GENTING += '- Tourist Indonesian, Singaporean, Arabia' + '\n';
 
     console.log(`Godiva - Malaysia\n`);
-    console.log(cleanup(GDV_MALAYSIA));
+    console.log(cleanup(GODIVA_MALAYSIA));
     console.log(`Godiva - Genting Team\n`);
-    console.log(cleanup(GDV_GENTING));
+    console.log(cleanup(GODIVA_GENTING));
 }
 
 DailySalesReport({
@@ -217,52 +252,3 @@ DailySalesReport({
     transaction: 42,
     crm: 6
 });
-
-`GODIVA
-Sales Report 
-Date :  
-STORE
-
-Retail.       : RM ? / (DAILY TARGET) 
-Softserve : RM ?  / (DAILY TARGET) 
-Food : RM. ? / (DAILY TARGET) 
-Beverages : RM?  / (DAILY TARGET) 
-Total : RM?  / (DAILY TARGET) 
-Discount : RM -
-
-
-Store Target: RM
-Retail MTD : RM ? / MONTHLY TARGET
-SoftS MTD : RM?  / MONTHLY TARGET
-Food MTD : RM?  / MONTHLY TARGET 
-Beverages MTD : RM?  / MONTHLY TARGETS
-Total MTD   : RM?  / MONTHLY TARGET
-Actual vs Target :   %
-
-Void : 
-Reprint receipt : 
-Crack cones : 
-Manual Receipts :  
-Walk in : 
-Transaction : 
-CRM :  
-
-RAYA HAMPER 
-Daily Target : 
-Qty Sold : 
-
-RM 178 :  
-RM 238 : 
-RM 298 : 
-RM 398 : 
-RM 498 : 
-RM 598 :
-RM 698 :
-RM 798 :
-RM 968 :
-RM 1088 :
-KUPAT BOX:
-PRALINE 8PC BOX:
-PRALINE 16PC BOX:
-RAYA CUBE 6PCS BOX:
-RAYA GOLD CHOC 6PC BOX:`
