@@ -23,6 +23,7 @@ const SOFTSERVE = {
 }
 
 const FOOD = {
+    MACARON: 18.85,
     CAKES: 21.7,
     PRALINE: 26.4,
 }
@@ -30,22 +31,22 @@ const FOOD = {
 const BEVERAGES = {
     HOT: {
         AMERICANO: 11.32,
-        MOCHA: 13.21,
         LATTE: 13.21,
+        CAPPUCINO: 13.21,
+        MOCHA: 13.21,
         CARAMEL_LATTE: 13.67,
         VANILLA_LATTE: 13.67,
         SINGLE_EXPRESSO: 7.55,
         DOUBLE_EXPRESSO: 11.32,
         CHOCOLATE: 25.47,
-        CAPPUCINO: 0,
-        AFFOGATO: 0,
+        AFFOGATO: 28.3,
     },
     COLD: {
         AMERICANO: 13.21,
         LATTE: 15.09,
-        CARAMEL_LATTE: 15.56,
-        CARAMEL_LATTE: 15.56,
         MOCHA: 15.09,
+        CARAMEL_LATTE: 15.56,
+        CARAMEL_LATTE: 15.56,
         CHOCOLATE: 27.36,
     },
     SHAKE: {
@@ -53,7 +54,7 @@ const BEVERAGES = {
         MILK: 30.19,
     },
     TEA: 15.09,
-    WATER: 234345435
+    WATER: 11.32
 }
 
 const DailySalesReport = ({
@@ -65,10 +66,10 @@ const DailySalesReport = ({
     crackedCones,
     total,
     quantity,
-    softserveMTD,
-    foodMTD,
-    beveragesMTD,
-    retailMTD,
+    softserveMTD = 0,
+    foodMTD = 0,
+    beveragesMTD = 0,
+    retailMTD = 0,
     transaction,
     crm
 } = {}) => {
@@ -108,7 +109,7 @@ const DailySalesReport = ({
 
     // Month to dates
     const ssMTD = softserveMTD + ss;
-    const fMTD = foodMTD + food;
+    const fMTD = foodMTD + cakes;
     const bMTD = beveragesMTD + drinks;
     const rMTD = retailMTD + retail;
     const mtd = ssMTD + + fMTD + bMTD + rMTD;
@@ -123,8 +124,8 @@ const DailySalesReport = ({
     const conversion = Math.floor(transaction / walkIn * 100);
 
     // Util, helps clean up the numbers
-    const n = number => number.toLocaleString();
-    const rm = value => `RM ${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+    const rm = number => `RM ${number.toLocaleString()}`;
+    // const rm = value => `RM ${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
     const cleanup = str => str.trim().replace(/^ +/gm, '');
 
     // More decimals = Multiply by moar zeroes
@@ -142,7 +143,6 @@ const DailySalesReport = ({
     const GDV_MALAYSIA = `
         *${store ? 'Sky Avenue Store' : 'Sky Avenue Kiosk'} Sales Report*
         Date: ${date} 10:00 PM
-        \n\n
         Retail: *${rm(retail)} _(${rm(RETAIL_TARGET)})_*
         Soft serve: *${rm(ss)} _(${rm(SOFTSERVE_TARGET)})_*
         ${store ? '' : ''}
