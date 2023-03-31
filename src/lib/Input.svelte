@@ -7,10 +7,6 @@
     function rotateValue(increment: number) {
         (value as number) += increment;
     }
-
-    function setType(node: HTMLInputElement) {
-        node.type = type;
-    }
 </script>
 
 <div class="input">
@@ -37,19 +33,19 @@
     .input {
         margin-bottom: 8px;
         font-size: 20px;
-    }
 
-    input:enabled:read-write:-webkit-any(
-            :focus,
-            :hover
-        )::-webkit-inner-spin-button {
-        display: none;
-    }
+        input:enabled:read-write:-webkit-any(
+                :focus,
+                :hover
+            )::-webkit-inner-spin-button {
+            display: none;
+        }
 
-    input:is([type="number"]) {
-        background: rgb(255 255 255 / 10%);
-        padding: 2px 4px;
-        font-family: monospace;
-        width: 100%;
+        input[type="number"] {
+            background: rgb(255 255 255 / 10%);
+            padding: 2px 4px;
+            font-family: monospace;
+            width: 100%;
+        }
     }
 </style>
