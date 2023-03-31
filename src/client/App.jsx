@@ -27,12 +27,14 @@ function Group({ title, children }) {
 function Input({ type, label, value, arrows, onInput }) {
     return (
         <div className="input">
-            <div className="label">{label}</div>
-            <input
-                type={type}
-                value={value}
-                onInput={e => onInput(e.target.value)}
-            />
+            <div class="wrapper">
+                <div className="label">{label}</div>
+                <input
+                    type={type}
+                    value={value}
+                    onInput={e => onInput(e.target.value)}
+                />
+            </div>
             {
                 arrows &&
                 <div className="arrows">
