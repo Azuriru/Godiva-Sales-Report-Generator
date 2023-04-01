@@ -26,7 +26,36 @@
         "CARAMELMIX": 30.19
     },
     "FOOD": {
-        "PREYEL": 21.7
+        "MACARON": 18.85,
+        "CAKES": 21.7,
+        "PRALINE": 26.4
     },
-    "BEVERAGES": {}
+    "BEVERAGES": {
+        "HOT": {
+            "AMERICANO": 11.32,
+            "LATTE": 13.21,
+            "CAPPUCINO": 13.21,
+            "MOCHA": 13.21,
+            "CARAMEL_LATTE": 13.67,
+            "VANILLA_LATTE": 13.67,
+            "SINGLE_EXPRESSO": 7.55,
+            "DOUBLE_EXPRESSO": 11.32,
+            "CHOCOLATE": 25.47,
+            "AFFOGATO": 28.3
+        },
+        "COLD": {
+            "AMERICANO": 13.21,
+            "LATTE": 15.09,
+            "CAPPUCINO": 15.09,
+            "MOCHA": 15.09,
+            "CARAMEL_LATTE": 15.56,
+            "CHOCOLATE": 27.36
+        },
+        "SHAKE": {
+            "DARK": 30.19,
+            "MILK": 30.19
+        },
+        "TEA": 15.09,
+        "WATER": 11.32
+    }
 }
