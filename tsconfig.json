@@ -15,8 +15,9 @@
         "checkJs": true,
         "isolatedModules": true,
         "strict": true,
-        // "strictNullChecks": true,
-        // "exactOptionalPropertyTypes": true
+        "ignoreDeprecations": "5.0",
+        "strictNullChecks": true,
+        "exactOptionalPropertyTypes": true
     },
     "include": [
         "src/**/*.d.ts",
