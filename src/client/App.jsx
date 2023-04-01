@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SOFTSERVE } from '../data.json';
+import { SOFTSERVE, STORE } from '../data.json';
 import './App.css';
 
 // function Date() {
@@ -20,6 +20,14 @@ function Group({ title, children }) {
             <div className="inputs">
                 {children}
             </div>
+        </div>
+    )
+}
+
+function Radio({ children }) {
+    return (
+        <div className="radio">
+            {children}
         </div>
     )
 }
@@ -48,6 +56,7 @@ function Input({ type, label, value, arrows, onInput }) {
 
 export default function App() {
     // Discounts
+    const [ store, setStore ] = useState(0);
     const [ ssd, setSoftServeDiscount ] = useState(0);
     const [ fd, setFoodDiscount ] = useState(0);
     const [ bd, setBeveragesDiscount ] = useState(0);
@@ -76,6 +85,25 @@ export default function App() {
             <div className="wrapper">
                 <div className="header">Sales Report Generator</div>
                 <div className="body">
+                    <Group>                                      
+                        <Radio>
+                            {
+                                STORE.map((val, index) => {
+                                    return (
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="store-selector"
+                                                onInput={() => setStore(index)}
+                                            >
+                                            </input>
+                                            <span>{val}</span>
+                                        </label>
+                                    );
+                                })
+                            }
+                        </Radio>
+                    </Group>
                     <Group title="Discounts">
                         <Input
                             type="number"
