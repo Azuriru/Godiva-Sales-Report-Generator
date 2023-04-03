@@ -29,7 +29,7 @@
 #App .wrapper .header {
     display: flex;
     justify-content: center;
-    margin-bottom: 48px;
+    margin-bottom: 60px;
     font-size: 24px;
     text-align: center;
 }
@@ -49,36 +49,65 @@
     margin: 0 20px 40px;
 }
 
+#App .wrapper .body .group.store-selector {
+    width: -webkit-fill-available;
+    margin-bottom: 60px;
+}
+
+#App .wrapper .body .group .radio {
+    display: flex;
+    justify-content: center;
+    gap: 0 40px;
+}
+
+#App .wrapper .body .group .radio label {
+    border: 2px solid rgb(255 255 255 / 20%);
+    padding: 8px 16px;
+    transition: .5s border-color;
+}
+
+#App .wrapper .body .group .radio label:hover {
+    border-color: rgb(255 255 255 / 30%);
+}
+
+#App .wrapper .body .group .radio label:has(:checked) {
+    border-color: rgb(255 255 255 / 50%);
+}
+
+#App .wrapper .body .group .radio label input {
+    display: none;
+}
+
 #App .wrapper .body .group .title {
     text-transform: uppercase;
     margin: 0 4px 8px;
     font-size: 20px;
 }
 
-#App .wrapper .body .group .input {
+#App .wrapper .body .group .inputs .input {
     margin-bottom: 8px;
     font-size: 20px;
 }
 
-#App .wrapper .body .group .input .label {
+#App .wrapper .body .group .inputs .input .label {
     font-variant: all-small-caps;
     padding: 0px 4px 2px;
 }
 
-#App .wrapper .body .group .inputs input[type="number"] {
+#App .wrapper .body .group .inputs .input input[type="number"] {
     background: rgb(255 255 255 / 10%);
     padding: 2px 4px;
     font-family: monospace;
     width: 100%;
 }
 
-#App .wrapper .body .group .input .arrows {
+#App .wrapper .body .group .inputs .input .arrows {
     width: 25px;
     display: flex;
     flex-direction: column;
 }
 
-#App .wrapper .body .group .input .arrows > .arrow {
+#App .wrapper .body .group .inputs .input .arrows > .arrow {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -86,8 +115,8 @@
     background: rgb(255 255 255 / 10%);
 }
 
-#App .wrapper .body .group .input .arrows .arrow.up::before,
-#App .wrapper .body .group .input .arrows .arrow.down::before {
+#App .wrapper .body .group .inputs .input .arrows .arrow.up::before,
+#App .wrapper .body .group .inputs .input .arrows .arrow.down::before {
     content:  '';
     width: 8px;
     height: 8px;
@@ -95,12 +124,12 @@
     border-width: 1px;
 }
 
-#App .wrapper .body .group .input .arrows .arrow.up::before {
+#App .wrapper .body .group .inputs .input.arrows .arrow.up::before {
     border-color: white transparent transparent white;
     transform: rotate(45deg) translate(2px, 2px);
 }
 
-#App .wrapper .body .group .input .arrows .arrow.down::before{
+#App .wrapper .body .group .inputs .input.arrows .arrow.down::before{
     border-color: transparent white white transparent;
     transform: rotate(45deg) translate(-2px, -2px);
 }

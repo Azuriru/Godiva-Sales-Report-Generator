@@ -1,23 +1,36 @@
 {
+    "EMPLOYEE": {
+        "V012438": "Nabil",
+        "V009628": "Lin",
+        "V011598": "Ikram",
+        "V011916": "Vee",
+        "V014262": "Felix",
+        "V014327": "Jeanne"
+    },
     "STORE": [
         "Sky Avenue Kiosk",
         "Sky Avenue Store",
         "Genting Premium Outlets"
     ],
-    "TARGET": {
-        "STORE": {
+    "TARGET": [
+        {
+            "SOFTSERVE": 2709.67,
+            "RETAIL": 1161.29,
+            "MONTHLY": 120000
+        }, 
+        {
             "SOFTSERVE": 2787.1,
             "FOOD": 290.33,
             "BEVERAGES": 696.77,
             "RETAIL": 2032.26,
             "MONTHLY": 180000
         },
-        "KIOSK": {
+        {
             "SOFTSERVE": 2709.67,
             "RETAIL": 1161.29,
             "MONTHLY": 120000
         }
-    },
+    ],
     "SOFTSERVE": {
         "DARKCHOCO": 28.3,
         "VANILLA": 28.3,

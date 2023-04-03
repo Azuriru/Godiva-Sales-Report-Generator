@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SOFTSERVE, STORE } from '../data.json';
+import data from '../data.json';
 import './App.css';
 
 // function Date() {
@@ -13,10 +13,12 @@ import './App.css';
 //     return date = `${p(dd)}/${p(mm)}/${p(yyyy)}`;
 // }
 
-function Group({ title, children }) {
+const { EMPLOYEE, STORE, TARGET, SOFTSERVE, FOOD, BEVERAGES } = data;
+
+function Group({ className, title, children }) {
     return (
-        <div className="group">
-            <div className="title">{title}</div>
+        <div className={`group ${className || ''}`}>
+            { title && <div className="title">{title}</div> }
             <div className="inputs">
                 {children}
             </div>
@@ -35,7 +37,7 @@ function Radio({ children }) {
 function Input({ type, label, value, arrows, onInput }) {
     return (
         <div className="input">
-            <div class="wrapper">
+            <div className="wrapper">
                 <div className="label">{label}</div>
                 <input
                     type={type}
@@ -55,28 +57,49 @@ function Input({ type, label, value, arrows, onInput }) {
 }
 
 export default function App() {
+    const [ store, setStore ] = useState(1);
+
+    const { 
+        SOFTSERVE: SOFTSERVE_TARGET = 0,
+        FOOD: FOOD_TARGET = 0, 
+        BEVERAGES: BEVERAGES_TARGET = 0,
+        RETAIL: RETAIL_TARGET = 0,
+        MONTHLY: MONTHLY_TARGET = 0
+    } = TARGET[store];
+
+    const DAILY_TARGET = [ SOFTSERVE_TARGET, FOOD_TARGET, BEVERAGES_TARGET, RETAIL_TARGET ].reduce((c, v) => c + v);
+
     // Discounts
-    const [ store, setStore ] = useState(0);
     const [ ssd, setSoftServeDiscount ] = useState(0);
     const [ fd, setFoodDiscount ] = useState(0);
     const [ bd, setBeveragesDiscount ] = useState(0);
+    const [ rd, setRetailDiscount ] = useState(0);
 
     // DC = Dark chocolate // CM = Caramel/Mixed
     const [ ssdc, setChocoSSAmount ] = useState(0);
     const [ sscm, setCMSSAmount ] = useState(0);
+        
+    // Targets
+    const [ storeTarget, setStoreTarget ] = useState(DAILY_TARGET);
+    const [ ssTarget, setSSTarget ] = useState(SOFTSERVE_TARGET);
+    const [ foodTarget, setFoodTarget ] = useState(FOOD_TARGET);
+    const [ beveragesTarget, setBeveragesTarget ] = useState(BEVERAGES_TARGET);
+    const [ retailTarget, setRetailTarget ] = useState(RETAIL_TARGET);
 
+    // Month to Dates
     const [ ssMTD, setSSMTD ] = useState(0);
     const [ foodMTD, setFoodMTD ] = useState(0);
     const [ beveragesMTD, setBeveragesMTD ] = useState(0);
     const [ retailMTD, setRetailMTD ] = useState(0);
     
+    // Other stuff
     const [ cc, setCC ] = useState(0);
     const [ total, setTotal ] = useState(0);
     const [ transactions, setTransactions ] = useState(0);
     const [ quantity, setQuantity ] = useState(0);
     const [ crm, setCRM ] = useState(0);
 
-    const totalDiscount = [ ssd, fd, bd ].reduce((c, v) => c + v);
+    const totalDiscount = [ ssd, fd, bd, rd ].reduce((c, v) => c + v);
 
     const ss = (SOFTSERVE.DARKCHOCO * ssdc) + (SOFTSERVE.CARAMELMIX * sscm);
 
@@ -85,15 +108,16 @@ export default function App() {
             <div className="wrapper">
                 <div className="header">Sales Report Generator</div>
                 <div className="body">
-                    <Group>                                      
+                    <div className="group store-selector">
                         <Radio>
                             {
                                 STORE.map((val, index) => {
                                     return (
-                                        <label>
+                                        <label key={index}>
                                             <input
                                                 type="radio"
                                                 name="store-selector"
+                                                defaultChecked={index === store}
                                                 onInput={() => setStore(index)}
                                             >
                                             </input>
@@ -103,7 +127,7 @@ export default function App() {
                                 })
                             }
                         </Radio>
-                    </Group>
+                    </div>
                     <Group title="Discounts">
                         <Input
                             type="number"
@@ -111,18 +135,28 @@ export default function App() {
                             value={ssd}
                             onInput={setSoftServeDiscount}
                         />
-                        <Input
-                            type="number"
-                            label="Food"
-                            value={fd}
-                            onInput={setFoodDiscount}
-                        />
-                        <Input
-                            type="number"
-                            label="Beverages"
-                            value={bd}
-                            onInput={setBeveragesDiscount}
-                        />
+                        {
+                            store > 0 && <>
+                                <Input
+                                    type="number"
+                                    label="Food"
+                                    value={fd}
+                                    onInput={setFoodDiscount}
+                                />
+                                <Input
+                                    type="number"
+                                    label="Beverages"
+                                    value={bd}
+                                    onInput={setBeveragesDiscount}
+                                />
+                                <Input
+                                    type="number"
+                                    label="Retail"
+                                    value={rd}
+                                    onInput={setRetailDiscount}
+                                />
+                            </>
+                        }
                     </Group>
                     <Group title="Soft Serve">
                         <Input
@@ -140,6 +174,36 @@ export default function App() {
                             onInput={setCMSSAmount}
                         />
                     </Group>
+                    <Group title="Targets">
+                        <Input
+                            type="number"
+                            label="Soft Serve Target"
+                            value={ssTarget}
+                            onInput={setSSTarget}
+                        />
+                        {
+                            store > 0 && <>
+                                <Input
+                                    type="number"
+                                    label="Food Target"
+                                    value={foodTarget}
+                                    onInput={setFoodTarget}
+                                />
+                                <Input
+                                    type="number"
+                                    label="Beverages Target"
+                                    value={beveragesTarget}
+                                    onInput={setBeveragesTarget}
+                                />
+                                <Input
+                                    type="number"
+                                    label="Retail Target"
+                                    value={retailTarget}
+                                    onInput={setRetailTarget}
+                                />
+                            </>
+                        }
+                    </Group>
                     <Group title="Month To Dates">
                         <Input
                             type="number"
@@ -147,24 +211,28 @@ export default function App() {
                             value={ssMTD}
                             onInput={setSSMTD}
                         />
-                        <Input
-                            type="number"
-                            label="Food MTD"
-                            value={foodMTD}
-                            onInput={setFoodMTD}
-                        />
-                        <Input
-                            type="number"
-                            label="Beverages MTD"
-                            value={beveragesMTD}
-                            onInput={setBeveragesMTD}
-                        />
-                        <Input
-                            type="number"
-                            label="Retail MTD"
-                            value={retailMTD}
-                            onInput={setRetailMTD}
-                        />
+                        {
+                            store > 0 && <>
+                                <Input
+                                    type="number"
+                                    label="Food MTD"
+                                    value={foodMTD}
+                                    onInput={setFoodMTD}
+                                />
+                                <Input
+                                    type="number"
+                                    label="Beverages MTD"
+                                    value={beveragesMTD}
+                                    onInput={setBeveragesMTD}
+                                />
+                                <Input
+                                    type="number"
+                                    label="Retail MTD"
+                                    value={retailMTD}
+                                    onInput={setRetailMTD}
+                                />
+                            </>
+                        }
                     </Group>
                     <Group title="Miscellaneous">
                         <Input
