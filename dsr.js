@@ -29,31 +29,23 @@ const FOOD = {
 }
 
 const BEVERAGES = {
-    HOT: {
-        AMERICANO: 11.32,
-        LATTE: 13.21,
-        CAPPUCINO: 13.21,
-        MOCHA: 13.21,
-        CARAMEL_LATTE: 13.67,
-        VANILLA_LATTE: 13.67,
-        SINGLE_EXPRESSO: 7.55,
-        DOUBLE_EXPRESSO: 11.32,
-        CHOCOLATE: 25.47,
-        AFFOGATO: 28.3,
-    },
-    COLD: {
-        AMERICANO: 13.21,
-        LATTE: 15.09,
-        CAPPUCINO: 15.09,
-        MOCHA: 15.09,
-        CARAMEL_LATTE: 15.56,
-        CARAMEL_LATTE: 15.56,
-        CHOCOLATE: 27.36,
-    },
-    SHAKE: {
-        DARK: 30.19,
-        MILK: 30.19,
-    },
+    SINGLE_EXPRESSO: 7.55,
+    AFFOGATO: 28.3,
+    // Americano, Double Expresso
+    HOT_BLACK: 11.32,
+    // Latte, Cappucino, Mocha
+    HOT_DRINK: 13.21,
+    // Caramel latte, vanilla latte
+    HOT_LATTE: 13.67,
+    HOT_CHOCOLATE: 25.47,
+    // Americano
+    COLD_BLACK: 13.21,
+    // Latte, Cappucino, Mocha
+    COLD_BASIC: 15.09,
+    // Caramel latte, Vanilla latte
+    COLD_LATTE: 15.56,
+    COLD_CHOCOLATE: 27.36,
+    SHAKE: 30.19,
     TEA: 15.09,
     WATER: 11.32
 }
@@ -237,18 +229,48 @@ const DailySalesReport = ({
 }
 
 DailySalesReport({
+    store: 1,
     softserve: {
-        DARKCHOCO: 27,
-        CARAMELMIX: 22,
+        DARKCHOCO: 0,
+        CARAMELMIX: 0,
+    },
+    food: {
+        MACARON: 0,
+        CAKES: 0,
+        PRALINE: 0
+    },
+    beverages: {
+        SINGLE_EXPRESSO: 0,
+        AFFOGATO: 0,
+        // Americano, Double Expresso
+        HOT_BLACK: 0,
+        // Latte, Cappucino, Mocha
+        HOT_DRINK: 0,
+        // Caramel latte, vanilla latte
+        HOT_LATTE: 0,
+        HOT_CHOCOLATE: 0,
+        // Americano
+        COLD_BLACK: 0,
+        // Latte, Cappucino, Mocha
+        COLD_BASIC: 0,
+        // Caramel latte, Vanilla latte
+        COLD_LATTE: 0,
+        COLD_CHOCOLATE: 0,
+        SHAKE: 0,
+        TEA: 0,
+        WATER: 0
     },
     discount: {
-        softserve: 9.06
+        softserve: 0,
+        food: 0,
+        beverages: 0,
+        retail: 0
     },
     crackedCones: 0,
-    total: 2003.79,
-    quantity: 65,
-    retailMTD: 21448.55,
-    softserveMTD:  33114.97,
-    transaction: 42,
-    crm: 6
+    total: 0,
+    quantity: 0,
+    retailMTD: 0,
+    softserveMTD: 0,
+    transaction: 0,
+    crm: 0
 });
