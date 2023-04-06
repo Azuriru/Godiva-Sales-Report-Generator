@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import data from '../data.json';
 import './App.css';
 
@@ -59,15 +59,7 @@ function Input({ type, label, value, arrows, onInput }) {
 export default function App() {
     const [ store, setStore ] = useState(1);
 
-    const { 
-        SOFTSERVE: SOFTSERVE_TARGET = 0,
-        FOOD: FOOD_TARGET = 0, 
-        BEVERAGES: BEVERAGES_TARGET = 0,
-        RETAIL: RETAIL_TARGET = 0,
-        MONTHLY: MONTHLY_TARGET = 0
-    } = TARGET[store];
-
-    const DAILY_TARGET = [ SOFTSERVE_TARGET, FOOD_TARGET, BEVERAGES_TARGET, RETAIL_TARGET ].reduce((c, v) => c + v);
+    const SELECTED_TARGET = TARGET[store];
 
     // Discounts
     const [ ssd, setSoftServeDiscount ] = useState(0);
@@ -78,20 +70,36 @@ export default function App() {
     // DC = Dark chocolate // CM = Caramel/Mixed
     const [ ssdc, setChocoSSAmount ] = useState(0);
     const [ sscm, setCMSSAmount ] = useState(0);
-        
+
     // Targets
-    const [ storeTarget, setStoreTarget ] = useState(DAILY_TARGET);
-    const [ ssTarget, setSSTarget ] = useState(SOFTSERVE_TARGET);
-    const [ foodTarget, setFoodTarget ] = useState(FOOD_TARGET);
-    const [ beveragesTarget, setBeveragesTarget ] = useState(BEVERAGES_TARGET);
-    const [ retailTarget, setRetailTarget ] = useState(RETAIL_TARGET);
+    const [ storeTarget, setStoreTarget ] = useState(0);
+    const [ ssTarget, setSSTarget ] = useState(0);
+    const [ foodTarget, setFoodTarget ] = useState(0);
+    const [ beveragesTarget, setBeveragesTarget ] = useState(0);
+    const [ retailTarget, setRetailTarget ] = useState(0);
+
+    // const DAILY_TARGET = [ SOFTSERVE_TARGET, FOOD_TARGET, BEVERAGES_TARGET, RETAIL_TARGET ].reduce((c, v) => c + v);
+    const DAILY_TARGET = [
+        ssTarget,
+        foodTarget,
+        beveragesTarget,
+        retailTarget
+    ].reduce((sum, target) => sum + target);
+
+    useEffect(() => {
+        setSSTarget(SELECTED_TARGET.SOFTSERVE ?? 0);
+        setFoodTarget(SELECTED_TARGET.SOFTSERVE ?? 0);
+        setBeveragesTarget(SELECTED_TARGET.BEVERAGES ?? 0);
+        setRetailTarget(SELECTED_TARGET.RETAIL ?? 0);
+        setStoreTarget(SELECTED_TARGET.DAILY_TARGET ?? 0);
+    }, [SELECTED_TARGET]);
 
     // Month to Dates
     const [ ssMTD, setSSMTD ] = useState(0);
     const [ foodMTD, setFoodMTD ] = useState(0);
     const [ beveragesMTD, setBeveragesMTD ] = useState(0);
     const [ retailMTD, setRetailMTD ] = useState(0);
-    
+
     // Other stuff
     const [ cc, setCC ] = useState(0);
     const [ total, setTotal ] = useState(0);
