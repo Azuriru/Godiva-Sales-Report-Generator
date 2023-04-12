@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Collapsible, Group, Radio, Input, Button } from './Components';
 import data from '../data.json';
 import './App.css';
 
@@ -15,75 +16,35 @@ import './App.css';
 
 const { EMPLOYEE, STORE, TARGET, SOFTSERVE, FOOD, BEVERAGES } = data;
 
-function Group({ className, title, children }) {
-    return (
-        <div className={`group ${className || ''}`}>
-            { title && <div className="title">{title}</div> }
-            <div className="inputs">
-                {children}
-            </div>
-        </div>
-    )
-}
-
-function Radio({ children }) {
-    return (
-        <div className="radio">
-            {children}
-        </div>
-    )
-}
-
-function Input({ type, label, value, arrows, onInput }) {
-    return (
-        <div className="input">
-            <div className="wrapper">
-                <div className="label">{label}</div>
-                <input
-                    type={type}
-                    value={value}
-                    onInput={e => onInput(e.target.value)}
-                />
-            </div>
-            {
-                arrows &&
-                <div className="arrows">
-                    <div className="up" onClick={() => onInput(val => val + 1)}></div>
-                    <div className="down" onClick={() => onInput(val => val - 1)}></div>
-                </div>
-            }
-        </div>
-    )
-}
-
 export default function App() {
-    const [ store, setStore ] = useState(1);
+    const [store, setStore] = useState(1);
+    const [time, setTime] = useState(2);
 
     const SELECTED_TARGET = TARGET[store];
 
     // Discounts
-    const [ ssd, setSoftServeDiscount ] = useState(0);
-    const [ fd, setFoodDiscount ] = useState(0);
-    const [ bd, setBeveragesDiscount ] = useState(0);
-    const [ rd, setRetailDiscount ] = useState(0);
+    const [ssd, setSoftServeDiscount] = useState(0);
+    const [fd, setFoodDiscount] = useState(0);
+    const [bd, setBeveragesDiscount] = useState(0);
+    const [rd, setRetailDiscount] = useState(0);
 
     // DC = Dark chocolate // CM = Caramel/Mixed
-    const [ ssdc, setChocoSSAmount ] = useState(0);
-    const [ sscm, setCMSSAmount ] = useState(0);
+    const [ssdc, setChocoSSAmount] = useState(0);
+    const [sscm, setCMSSAmount] = useState(0);
 
     // Targets
-    const [ storeTarget, setStoreTarget ] = useState(0);
-    const [ ssTarget, setSSTarget ] = useState(0);
-    const [ foodTarget, setFoodTarget ] = useState(0);
-    const [ beveragesTarget, setBeveragesTarget ] = useState(0);
-    const [ retailTarget, setRetailTarget ] = useState(0);
+    const [storeTarget, setStoreTarget] = useState(0);
+    const [ssTarget, setSSTarget] = useState(0);
+    const [foodTarget, setFoodTarget] = useState(0);
+    const [beveragesTarget, setBeveragesTarget] = useState(0);
+    const [retailTarget, setRetailTarget] = useState(0);
 
     // const DAILY_TARGET = [ SOFTSERVE_TARGET, FOOD_TARGET, BEVERAGES_TARGET, RETAIL_TARGET ].reduce((c, v) => c + v);
     const DAILY_TARGET = [
         ssTarget,
         foodTarget,
         beveragesTarget,
-        retailTarget
+        retailTarget,
     ].reduce((sum, target) => sum + target);
 
     useEffect(() => {
@@ -95,45 +56,60 @@ export default function App() {
     }, [SELECTED_TARGET]);
 
     // Month to Dates
-    const [ ssMTD, setSSMTD ] = useState(0);
-    const [ foodMTD, setFoodMTD ] = useState(0);
-    const [ beveragesMTD, setBeveragesMTD ] = useState(0);
-    const [ retailMTD, setRetailMTD ] = useState(0);
+    const [ssMTD, setSSMTD] = useState(0);
+    const [foodMTD, setFoodMTD] = useState(0);
+    const [beveragesMTD, setBeveragesMTD] = useState(0);
+    const [retailMTD, setRetailMTD] = useState(0);
 
     // Other stuff
-    const [ cc, setCC ] = useState(0);
-    const [ total, setTotal ] = useState(0);
-    const [ transactions, setTransactions ] = useState(0);
-    const [ quantity, setQuantity ] = useState(0);
-    const [ crm, setCRM ] = useState(0);
+    const [cc, setCC] = useState(0);
+    const [total, setTotal] = useState(0);
+    const [lytotal, setLYTotal] = useState(0);
+    const [transactions, setTransactions] = useState(0);
+    const [quantity, setQuantity] = useState(0);
+    const [crm, setCRM] = useState(0);
 
-    const totalDiscount = [ ssd, fd, bd, rd ].reduce((c, v) => c + v);
+    const totalDiscount = [ssd, fd, bd, rd].reduce((c, v) => c + v);
 
-    const ss = (SOFTSERVE.DARKCHOCO * ssdc) + (SOFTSERVE.CARAMELMIX * sscm);
+    const ss = SOFTSERVE.DARKCHOCO * ssdc + SOFTSERVE.CARAMELMIX * sscm;
 
     return (
         <div id="App">
             <div className="wrapper">
                 <div className="header">Sales Report Generator</div>
-                <div className="body">
+                <Collapsible title="Generate">
                     <div className="group store-selector">
                         <Radio>
-                            {
-                                STORE.map((val, index) => {
-                                    return (
-                                        <label key={index}>
-                                            <input
-                                                type="radio"
-                                                name="store-selector"
-                                                defaultChecked={index === store}
-                                                onInput={() => setStore(index)}
-                                            >
-                                            </input>
-                                            <span>{val}</span>
-                                        </label>
-                                    );
-                                })
-                            }
+                            {STORE.map((val, index) => {
+                                return (
+                                    <label key={index}>
+                                        <input
+                                            type="radio"
+                                            name="store-selector"
+                                            defaultChecked={index === store}
+                                            onInput={() => setStore(index)}
+                                        ></input>
+                                        <span>{val}</span>
+                                    </label>
+                                );
+                            })}
+                        </Radio>
+                    </div>
+                    <div className="group time-selector">
+                        <Radio>
+                            {['2 PM', '6 PM', '10 PM'].map((val, index) => {
+                                return (
+                                    <label key={index}>
+                                        <input
+                                            type="radio"
+                                            name="time-selector"
+                                            defaultChecked={index === time}
+                                            onInput={() => setTime(index)}
+                                        ></input>
+                                        <span>{val}</span>
+                                    </label>
+                                );
+                            })}
                         </Radio>
                     </div>
                     <Group title="Discounts">
@@ -143,8 +119,8 @@ export default function App() {
                             value={ssd}
                             onInput={setSoftServeDiscount}
                         />
-                        {
-                            store > 0 && <>
+                        {store > 0 && (
+                            <>
                                 <Input
                                     type="number"
                                     label="Food"
@@ -157,14 +133,14 @@ export default function App() {
                                     value={bd}
                                     onInput={setBeveragesDiscount}
                                 />
-                                <Input
-                                    type="number"
-                                    label="Retail"
-                                    value={rd}
-                                    onInput={setRetailDiscount}
-                                />
                             </>
-                        }
+                        )}
+                        <Input
+                            type="number"
+                            label="Retail"
+                            value={rd}
+                            onInput={setRetailDiscount}
+                        />
                     </Group>
                     <Group title="Soft Serve">
                         <Input
@@ -189,8 +165,8 @@ export default function App() {
                             value={ssTarget}
                             onInput={setSSTarget}
                         />
-                        {
-                            store > 0 && <>
+                        {store > 0 && (
+                            <>
                                 <Input
                                     type="number"
                                     label="Food Target"
@@ -203,14 +179,14 @@ export default function App() {
                                     value={beveragesTarget}
                                     onInput={setBeveragesTarget}
                                 />
-                                <Input
-                                    type="number"
-                                    label="Retail Target"
-                                    value={retailTarget}
-                                    onInput={setRetailTarget}
-                                />
                             </>
-                        }
+                        )}
+                        <Input
+                            type="number"
+                            label="Retail Target"
+                            value={retailTarget}
+                            onInput={setRetailTarget}
+                        />
                     </Group>
                     <Group title="Month To Dates">
                         <Input
@@ -219,8 +195,8 @@ export default function App() {
                             value={ssMTD}
                             onInput={setSSMTD}
                         />
-                        {
-                            store > 0 && <>
+                        {store > 0 && (
+                            <>
                                 <Input
                                     type="number"
                                     label="Food MTD"
@@ -233,14 +209,14 @@ export default function App() {
                                     value={beveragesMTD}
                                     onInput={setBeveragesMTD}
                                 />
-                                <Input
-                                    type="number"
-                                    label="Retail MTD"
-                                    value={retailMTD}
-                                    onInput={setRetailMTD}
-                                />
                             </>
-                        }
+                        )}
+                        <Input
+                            type="number"
+                            label="Retail MTD"
+                            value={retailMTD}
+                            onInput={setRetailMTD}
+                        />
                     </Group>
                     <Group title="Miscellaneous">
                         <Input
@@ -255,6 +231,14 @@ export default function App() {
                             value={total}
                             onInput={setTotal}
                         />
+                        {time < 2 && (
+                            <Input
+                                type="number"
+                                label="Last Year Total"
+                                value={lytotal}
+                                onInput={setLYTotal}
+                            />
+                        )}
                         <Input
                             type="number"
                             label="Transactions"
@@ -274,7 +258,10 @@ export default function App() {
                             onInput={setCRM}
                         />
                     </Group>
-                </div>
+                    <div className="generate">
+                        <Button text="Generate" />
+                    </div>
+                </Collapsible>
             </div>
         </div>
     );
