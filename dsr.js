@@ -1,16 +1,16 @@
 const STORE = ['Sky Avenue Kiosk', 'Sky Avenue Store', 'Genting Premium Outlets'];
 const TARGET = {
     STORE: {
-        SOFTSERVE: 4000,
-        FOOD: 416.67,
-        BEVERAGES: 1000,
-        RETAIL: 2916.67,
+        SOFTSERVE: 3870.96,
+        FOOD: 403.23,
+        BEVERAGES: 967.74,
+        RETAIL: 2822.58,
         MONTHLY: 250000
     },
     KIOSK: {
-        SOFTSERVE: 2709.67,
-        RETAIL: 1161.29,
-        MONTHLY: 120000
+        SOFTSERVE: 2935.10,
+        RETAIL: 1257.90,
+        MONTHLY: 130000
     }
 }
 
